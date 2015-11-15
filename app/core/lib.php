@@ -232,7 +232,17 @@ class Library {
 			return $diff;
 		}
 		
-
+	//Avarar updating
+	public static function changeAvatar($login, $avatar) {
+		$stmt = mysqli_stmt_init(DataBase::Connect());
+		$query = "UPDATE USERS SET AVATAR_URL = ? WHERE LOGIN = ?";
+		if(!mysqli_stmt_prepare($stmt, $query))
+			return false;
+		mysqli_stmt_bind_param($stmt, "ss", $avatar, $login);	
+		mysqli_stmt_execute($stmt);
+		mysqli_stmt_close($stmt);
+		return true;
+	}
 }
 
 ?>
