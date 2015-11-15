@@ -15,6 +15,7 @@
 				<table>
 					<tr>
 						<td><label class="label">Логин</label></td>
+						
 						<td><?= @$user->login ?></td>
 					</tr>
 					<tr>
