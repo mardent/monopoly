@@ -16,6 +16,7 @@ require_once 'app/start.ini.php';
 		<script src="../js/check_form.js"></script>
 		<script src="../js/spin.min.js"></script>
 		<script src="../js/check_cookie.js"></script>
+		<script src="../js/profile_view.js"></script>
 		<title>Монополия</title>
 		<noscript>
 		<font color='red'><div class="clear h20"></div><h1>Внимание! У Вас отключена поддержка JavaScript!</h1></font>Для продолжения работы необходимо включить функцию JavaScript в настройках вашего браузера<br>
