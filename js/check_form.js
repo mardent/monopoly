@@ -35,7 +35,7 @@ $(function() {
 //-------------------------------------||--------------------------------------------------//
 
 //-------------------------------------Проверяем поля ввода ------------------------------//
- $('#login, #email, #password, #confirm, #name, #avatar, #old ').blur( function(){
+ $('#login, #email, #password, #confirm, #name, #avatar, #old, #captcha').blur( function(){
          var id = $(this).attr('id');
          var val = $(this).val();  
        switch(id)
@@ -125,6 +125,24 @@ $(function() {
               }
           break;
 		  
+		  case 'captcha':
+				var rv_name = /[0-9a-z]+/i;
+                if(val.length > 4 && val != '' && rv_name.test(val))
+                {
+				   $(this).removeClass('err').addClass('not_error');
+                   $(this).next('.error-captcha').fadeOut(800, function(){$(this).css('display','none')});
+				   $(this).css('border-color','blue');
+                }
+
+                else
+                {
+                   $(this).removeClass('not_error').addClass('err');
+				   $(this).css('border-color','red');
+                   $(this).next('.error-captcha').html('Поле "Капча" обязательно для заполнения, его длинна должна составлять 5 символов, поле может содержать только цифры или латинские буквы')
+											.fadeIn(800, function(){ $(this).css('display','block')}).fadeOut(6000, function(){$(this).css('display','none')});
+                }
+            break;
+		  
        } // конец switch;
 
      }); // конец blur;
@@ -156,7 +174,7 @@ $(function() {
 					 var id = $(this).attr('id');
 						switch(id){
 							case 'reg':
-								 sendRegData($('#login').val(), $('#password').val(), $('#name').val(), $('#email').val());
+								 sendRegData($('#login').val(), $('#password').val(), $('#name').val(), $('#email').val(), $('#captcha').val());
 								$('#loading').css('display','block');
 								var opts = {
 								lines: 13, // Число линий для рисования
@@ -295,7 +313,7 @@ function clickBack() {
 	document.location.href ='/';
 }
 
-function sendRegData(login, password, name, email){
+function sendRegData(login, password, name, email, captcha){
 	    $.ajax({
 		dataType: "xml",
         url: "/app/inc/actions.php",
@@ -305,7 +323,8 @@ function sendRegData(login, password, name, email){
             login : login,
             password : password,
 			name : name,
-			email : email
+			email : email,
+			captcha : captcha
         },
         success: function (data) {
             if ("ok" === $(data).find("result").text().toLowerCase()) {
@@ -315,7 +334,10 @@ function sendRegData(login, password, name, email){
 				$('.message').html('Поздравляем. Вы успешно зарегистрированы!')
 						.fadeIn(200, function(){ $(this).css('display','block')}).fadeOut(6000, function(){ $(this).css('display','none')});
             } else {
-				$('.input').val('').removeAttr('style');
+				//$('.input').val('').removeAttr('style');
+				$('#password').val('').removeAttr('style');
+				$('#confirm').val('').removeAttr('style');
+				document.getElementById('captcha_image').src='app/inc/captcha.php?'+Math.random();
 				$('#loading').css('display','none');
                 var text = $(data).find("result").text();
 				$('.message').html(text)
