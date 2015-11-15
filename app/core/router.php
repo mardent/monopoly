@@ -11,7 +11,7 @@ class Route
 		$routes = explode('/', Library::clearStr($_SERVER['REQUEST_URI']));
 		
 		// получаем имя контроллера
-		error_log("Err".$_SERVER['REQUEST_URI'], 0);
+		error_log("Error:".$_SERVER['REQUEST_URI'], 0);
 		if ( !empty($routes[1]) )
 		{	if(@$_SESSION['user']){
 				if($routes[1] == 'main'){

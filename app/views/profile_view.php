@@ -4,18 +4,12 @@
 <? @$user =  unserialize($_SESSION["user"]) ?>
 
 <br>
-
-<form id="uploadForm">
-	<img id="avatar" src=<?="/images/avatars/".@$user->avatar?> style="width:304px;height:300px;">
+<img
+	src=<?= "/images/avatars/".@$user->avatar?>
+	style="width:304px;height:300px;">
 <br>
-	<input name="userImage" type="file" />
-	<input type="submit" value="Submit" />
-</form>
-
-<button id="deleteAvatar" onClick="deleteAvatar()">Delete avatar</button>
-
-<br>
-
+<button id="changeAvatar" onClick="">Изменить</button>
+<button id="deleteAvatar" onClick="">Удалить</button>
 <fieldset class="profile" >
 				<form class="form">
 				<table>

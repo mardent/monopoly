@@ -1,3 +1,7 @@
+<?php
+$_SESSION['captcha_session'] = substr(md5(uniqid("")), 0, 5);
+?>
+
 <fieldset class="register"  >
 	<legend>Регистрация</legend>
 				<form class="form">
@@ -37,6 +41,20 @@
 								   placeholder="e-mail">
 								   <div class="error-email"></div>
 								   </td>
+					</tr>
+					<tr>
+						<td></td>
+						<td><img alt="" id="captcha_image" src="app/inc/captcha.php"></td>
+					</tr>
+					<tr>
+						<td><label class="label" for="captcha">Введите капчу*</label></td>
+						<td><input class="input" type="text" name="captcha" id="captcha" size="6" maxlength="15"
+									placeholder="капча">
+									<div class="error-captcha"></div>
+									</td>
+					</tr>
+					<tr>
+						<td><p><a href="#" onclick="document.getElementById('captcha_image').src='app/inc/captcha.php?'+Math.random();return false;">Обновить капчу</a>?</p></td>
 					</tr>
 				</table>
 				<section class = "button">
