@@ -18,6 +18,7 @@ require_once 'app/start.ini.php';
 		<link type="text/css" rel="stylesheet" href="../css/errorlist.css"></link>
 		<script src="../js/jquery-2.1.3.js"></script>
 		<script src="../js/check_form.js"></script>
+		<script src="../js/profile_view.js"></script>
 		<script src="../js/spin.min.js"></script>
 		<title>Монополия</title>
 	</head>

@@ -101,6 +101,17 @@
 					}		
 		   	break;
 			
+			case "deleteAvatar":
+				$user = unserialize($_SESSION["user"]);
+				$fileName = "Noavatar.png";
+				if ($user->avatar != 'Noavatar.png')
+					unlink("../../images/avatars/".$user->avatar);
+				Library::changeAvatar($user->login, $fileName);
+				$user->avatar = $fileName;
+				$_SESSION["user"] = serialize($user);
+				echo "<result>$fileName</result>";
+			break;
+			
 			case "exit"; 
 				unset($_SESSION["user"]);
 				echo "<result>ok</result>";
