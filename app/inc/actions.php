@@ -27,7 +27,15 @@
 				$password =  Library::clearStr($_POST["password"]);
 				$name = Library::clearStr($_POST["name"]);
 				$email = Library::clearStr($_POST["email"]);					
-				if (!Library::isLoginFree($login)) {
+				$captcha_input = isset($_POST['captcha']) ? (string) $_POST['captcha'] : '';
+				error_log("Err".$captcha_input, 0);
+				$captcha_session = isset($_SESSION['captcha_session']) ? (string) $_SESSION['captcha_session'] : '';
+				error_log("Err".$captcha_session, 0);
+				if ( empty($captcha_input) ) {
+				} elseif ( empty($captcha_session) ) {
+				} elseif ( $captcha_input != $captcha_session ) {
+					echo "<result>Вы ввели неправильную капчу</result>";
+				} elseif (!Library::isLoginFree($login)) {
 					echo "<result>Пользователь с таким логином уже существует</result>";
 				} elseif (!Library::isMailFree($email)) {
 					echo "<result>Пользователь с таким email адресом уже существует</result>";
