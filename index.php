@@ -1,11 +1,7 @@
 <?php
 session_start(); 
 ini_set('display_errors', 1);
-error_reporting(E_ALL & ~E_NOTICE);                                        
-	setcookie('on','1');
-	if(!@$_COOKIE['on']){
-		echo "Для корректной работы сайта влючите cookie";
-	}
+error_reporting(E_ALL);                                        
 require_once 'app/start.ini.php';
 ?>
 <!doctype html>
@@ -18,9 +14,15 @@ require_once 'app/start.ini.php';
 		<link type="text/css" rel="stylesheet" href="../css/errorlist.css"></link>
 		<script src="../js/jquery-2.1.3.js"></script>
 		<script src="../js/check_form.js"></script>
-		<script src="../js/profile_view.js"></script>
 		<script src="../js/spin.min.js"></script>
+		<script src="../js/check_cookie.js"></script>
 		<title>Монополия</title>
+		<noscript>
+		<font color='red'><div class="clear h20"></div><h1>Внимание! У Вас отключена поддержка JavaScript!</h1></font>Для продолжения работы необходимо включить функцию JavaScript в настройках вашего браузера<br>
+		</noscript>
+		<script type='text/javascript'>
+		if (enabled==null) document.write('<h1>Внимание! У Вас отключена поддержка Cookie!</h1>Для продолжения работы необходимо включить поддержку Cookie в настройках вашего браузера');
+		</script>
 	</head>
 <?php
 
