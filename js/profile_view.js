@@ -69,7 +69,7 @@ function deleteAvatar() {
 			action : "deleteAvatar"
 		},
 		success: function (data) {
-			$("#avatar").attr('src', "/images/avatars/" + res);
+			$("#avatar").attr('src', "/images/avatars/" + $(data).find("result").text());
 		},
 		error: function () {
 
