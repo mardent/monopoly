@@ -2,6 +2,7 @@
 $_SESSION['captcha_session'] = substr(md5(uniqid("")), 0, 5);
 ?>
 
+
 <fieldset class="register"  >
 	<legend>Регистрация</legend>
 				<form class="form">
