@@ -138,7 +138,7 @@ $(function() {
                 {
                    $(this).removeClass('not_error').addClass('err');
 				   $(this).css('border-color','red');
-                   $(this).next('.error-captcha').html('Поле "Капча" обязательно для заполнения, его длинна должна составлять 5 символов, поле может содержать только цифры или латинские буквы')
+                   $(this).next('.error-captcha').html('Введите изображение с картинки')
 											.fadeIn(800, function(){ $(this).css('display','block')}).fadeOut(6000, function(){$(this).css('display','none')});
                 }
             break;
