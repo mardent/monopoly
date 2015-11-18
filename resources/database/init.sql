@@ -1,6 +1,11 @@
-CREATE DATABASE MONOPOLY;
-
-USE MONOPOLY;
+﻿DROP TABLE PLAYERS_PROPERTIES;
+DROP TABLE GAME_CARDS;
+DROP TABLE INFO_CARDS;
+DROP TABLE CELLS;
+DROP TABLE PROPERTIES;
+DROP TABLE PLAYERS;
+DROP TABLE ROOMS;
+DROP TABLE USERS;
 
 CREATE TABLE USERS 
 (
@@ -97,73 +102,73 @@ CREATE TABLE PLAYERS_PROPERTIES
 
 
 INSERT INTO INFO_CARDS (TYPE_NAME, MESSAGE, ACTION) 
-VALUES ('Community Chest', 'Advance to Go (Collect $200)', '<location>0</location>');
+VALUES ('Community Chest', 'Advance to Go (Collect $200)', 'l="0"');
 INSERT INTO INFO_CARDS (TYPE_NAME, MESSAGE, ACTION) 
-VALUES ('Community Chest', 'Bank error in your favor – Collect $200', '<money>200</money>');
+VALUES ('Community Chest', 'Bank error in your favor – Collect $200', 'm="200"');
 INSERT INTO INFO_CARDS (TYPE_NAME, MESSAGE, ACTION) 
-VALUES ('Community Chest', 'Doctors fees – Pay $50', '<money>50</money>');
+VALUES ('Community Chest', 'Doctors fees – Pay $50', 'm="-50"');
 INSERT INTO INFO_CARDS (TYPE_NAME, MESSAGE, ACTION) 
-VALUES ('Community Chest', 'From sale of stock you get $50', '<money>50</money>');
+VALUES ('Community Chest', 'From sale of stock you get $50', 'm="50"');
 INSERT INTO INFO_CARDS (TYPE_NAME, MESSAGE, ACTION) 
-VALUES ('Community Chest', 'Get Out of Jail Free – This card may be kept until needed or sold', '<outOfJail>true</outOfJail>');
+VALUES ('Community Chest', 'Get Out of Jail Free – This card may be kept until needed or sold', 'n=""');
 INSERT INTO INFO_CARDS (TYPE_NAME, MESSAGE, ACTION) 
-VALUES ('Community Chest', 'Go to Jail – Do not pass Go – Do not collect $200', '<location>30</location><finish>true</finish>');
+VALUES ('Community Chest', 'Go to Jail – Do not pass Go – Do not collect $200', 'j="" f=""');
 INSERT INTO INFO_CARDS (TYPE_NAME, MESSAGE, ACTION) 
-VALUES ('Community Chest', 'Grand Opera Night – Collect $50 from every player for opening night seats', '<foreach>50</foreach>');
+VALUES ('Community Chest', 'Grand Opera Night – Collect $50 from every player for opening night seats', 'e="50"');
 INSERT INTO INFO_CARDS (TYPE_NAME, MESSAGE, ACTION) 
-VALUES ('Community Chest', 'Holiday Fund matures - Receive $100', '<money>100</money>');
+VALUES ('Community Chest', 'Holiday Fund matures - Receive $100', 'm="100"');
 INSERT INTO INFO_CARDS (TYPE_NAME, MESSAGE, ACTION) 
-VALUES ('Community Chest', 'Income tax refund – Collect $20', '<money>20</money>');
+VALUES ('Community Chest', 'Income tax refund – Collect $20', 'm="20"');
 INSERT INTO INFO_CARDS (TYPE_NAME, MESSAGE, ACTION) 
-VALUES ('Community Chest', 'It is your birthday - Collect $10 from each player', '<foreach>10</foreach>');
+VALUES ('Community Chest', 'It is your birthday - Collect $10 from each player', 'e="10"');
 INSERT INTO INFO_CARDS (TYPE_NAME, MESSAGE, ACTION) 
-VALUES ('Community Chest', 'Life insurance matures – Collect $100', '<money>100</money>');
+VALUES ('Community Chest', 'Life insurance matures – Collect $100', 'm="100"');
 INSERT INTO INFO_CARDS (TYPE_NAME, MESSAGE, ACTION) 
-VALUES ('Community Chest', 'Pay hospital fees of $100', '<money>-100</money>');
+VALUES ('Community Chest', 'Pay hospital fees of $100', 'm="-100"');
 INSERT INTO INFO_CARDS (TYPE_NAME, MESSAGE, ACTION) 
-VALUES ('Community Chest', 'You are assessed for street repairs – $40 per house – $115 per hotel', '<forHouse>40</forHouse><forHotel>115</forHotel>');
+VALUES ('Community Chest', 'You are assessed for street repairs – $40 per house – $115 per hotel', 'h="40" o="115"');
 INSERT INTO INFO_CARDS (TYPE_NAME, MESSAGE, ACTION) 
-VALUES ('Community Chest', 'Pay school fees of $150', '<money>-150</money>');
+VALUES ('Community Chest', 'Pay school fees of $150', 'm="-150"');
 INSERT INTO INFO_CARDS (TYPE_NAME, MESSAGE, ACTION) 
-VALUES ('Community Chest', 'Receive $25 consultancy fee', '<money>25</money>');
+VALUES ('Community Chest', 'Receive $25 consultancy fee', 'm="25"');
 INSERT INTO INFO_CARDS (TYPE_NAME, MESSAGE, ACTION) 
-VALUES ('Community Chest', 'You have won second prize in a beauty contest – Collect $10', '<money>10</money>');
+VALUES ('Community Chest', 'You have won second prize in a beauty contest – Collect $10', 'm="10"');
 INSERT INTO INFO_CARDS (TYPE_NAME, MESSAGE, ACTION) 
-VALUES ('Community Chest', 'You inherit $100', '<money>100</money>');
+VALUES ('Community Chest', 'You inherit $100', 'm="100"');
 INSERT INTO INFO_CARDS (TYPE_NAME, MESSAGE, ACTION) 
-VALUES ('Chance', 'Advance to Go (Collect $200)', '<location>0</location>');
+VALUES ('Chance', 'Advance to Go (Collect $200)', 'l="0"');
 INSERT INTO INFO_CARDS (TYPE_NAME, MESSAGE, ACTION) 
-VALUES ('Chance', 'Advance to Illinois Ave. - If you pass Go, collect $200', '<location>23</location><finish>true</finish>');
+VALUES ('Chance', 'Advance to Illinois Ave. - If you pass Go, collect $200', 'l="23"');
 INSERT INTO INFO_CARDS (TYPE_NAME, MESSAGE, ACTION) 
-VALUES ('Chance', 'Advance to St. Charles Place – If you pass Go, collect $200', '<location>11</location><finish>true</finish>');
+VALUES ('Chance', 'Advance to St. Charles Place – If you pass Go, collect $200', 'l="11"');
 INSERT INTO INFO_CARDS (TYPE_NAME, MESSAGE, ACTION) 
 VALUES ('Chance', 'Advance token to nearest Utility. If unowned, you may buy it from the Bank. If owned, throw dice and pay owner a total ten times the amount thrown.', 
-'<location>12</location><location>28</location><finish>true</finish><payMore>true</payMore>');
+'l="12" l2="28" p=""');
 INSERT INTO INFO_CARDS (TYPE_NAME, MESSAGE, ACTION) 
 VALUES ('Chance', 'Advance token to the nearest Railroad and pay owner twice the rental to which he/she is otherwise entitled. If Railroad is unowned, you may buy it from the Bank.', 
-'<location>5</location><location>15</location><location>25</location><location>35</location><finish>true</finish><payMore>true</payMore>');
+'l="5" l2="15" l3="25" l4="35" p=""');
 INSERT INTO INFO_CARDS (TYPE_NAME, MESSAGE, ACTION) 
-VALUES ('Chance', 'Bank pays you dividend of $50', '<money>50</money>');
+VALUES ('Chance', 'Bank pays you dividend of $50', 'm="50"');
 INSERT INTO INFO_CARDS (TYPE_NAME, MESSAGE, ACTION) 
-VALUES ('Chance', ' Get out of Jail Free – This card may be kept until needed, or traded/sold', '<outOfJail>true</outOfJail>');
+VALUES ('Chance', ' Get out of Jail Free – This card may be kept until needed, or traded/sold', 'n=""');
 INSERT INTO INFO_CARDS (TYPE_NAME, MESSAGE, ACTION) 
-VALUES ('Chance', 'Go Back 3 Spaces', '<location>-3</location><finish>false</finish>');
+VALUES ('Chance', 'Go Back 3 Spaces', 'l="-3" f=""');
 INSERT INTO INFO_CARDS (TYPE_NAME, MESSAGE, ACTION) 
-VALUES ('Chance', 'Go to Jail – Go directly to Jail – Do not pass Go, do not collect $200', '<location>30</location><finish>true</finish>');
+VALUES ('Chance', 'Go to Jail – Go directly to Jail – Do not pass Go, do not collect $200', 'j="" f=""');
 INSERT INTO INFO_CARDS (TYPE_NAME, MESSAGE, ACTION) 
-VALUES ('Chance', 'Make general repairs on all your property – For each house pay $25 – For each hotel $100', '<forHouse>-25</forHouse><forHotel>-100</forHotel>');
+VALUES ('Chance', 'Make general repairs on all your property – For each house pay $25 – For each hotel $100', 'h="25" o="100"');
 INSERT INTO INFO_CARDS (TYPE_NAME, MESSAGE, ACTION) 
-VALUES ('Chance', 'Pay poor tax of $15', '<money>-15</money>');
+VALUES ('Chance', 'Pay poor tax of $15', 'm="-15"');
 INSERT INTO INFO_CARDS (TYPE_NAME, MESSAGE, ACTION) 
-VALUES ('Chance', 'Take a trip to Reading Railroad', '<location>25</location><finish>true</finish>');
+VALUES ('Chance', 'Take a trip to Reading Railroad', 'l="25"');
 INSERT INTO INFO_CARDS (TYPE_NAME, MESSAGE, ACTION) 
-VALUES ('Chance', 'Take a walk on the Boardwalk – Advance token to Boardwalk', '<location>39</location><finish>true</finish>');
+VALUES ('Chance', 'Take a walk on the Boardwalk – Advance token to Boardwalk', 'l="39"');
 INSERT INTO INFO_CARDS (TYPE_NAME, MESSAGE, ACTION) 
-VALUES ('Chance', 'You have been elected Chairman of the Board – Pay each player $50', '<foreach>-50</foreach>');
+VALUES ('Chance', 'You have been elected Chairman of the Board – Pay each player $50', 'e="-50"');
 INSERT INTO INFO_CARDS (TYPE_NAME, MESSAGE, ACTION) 
-VALUES ('Chance', 'Your building loan matures – Collect $150', '<money>150</money>');
+VALUES ('Chance', 'Your building loan matures – Collect $150', 'm="150"');
 INSERT INTO INFO_CARDS (TYPE_NAME, MESSAGE, ACTION) 
-VALUES ('Chance', 'You have won a crossword competition - Collect $100', '<money>100</money>');
+VALUES ('Chance', 'You have won a crossword competition - Collect $100', 'm="100"');
 
 
 
