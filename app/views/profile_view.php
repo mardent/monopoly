@@ -1,3 +1,10 @@
+<?php
+	if(isset($_SESSION["lang"])){
+		$translate = new Translator($_SESSION["lang"]);
+	}else{
+		$translate = new Translator('ru');
+	}
+?>
 <br>
 <center><h1><?php $translate->__('Профиль')?></h1>
 
@@ -16,7 +23,7 @@
 
 <br>
 
-<fieldset class="profile" >
+<fieldset class="profile" id="profile" >
 				<form class="form">
 				<table>
 					<tr>
@@ -31,14 +38,14 @@
 						<td><label class="label" for="old"><?php $translate->__('Старый пароль')?></label></td>
 						<td><input class="input" type="password" id="old" size="16" maxlength="128"
 								   placeholder="<?php $translate->__('пароль')?>">
-								   <div class="error-password"></div>
+								   <div class="error-password"><?php $translate->__('Введите пароль. Не меньше 4 знаков.')?></div>
 								   </td>
 					</tr>
 					<tr>
 						<td><label class="label" for="password"><?php $translate->__('Новый пароль')?></label></td>
 						<td><input class="input" type="password" id="password" size="16" maxlength="128"
 								   placeholder="<?php $translate->__('новый')?>" >
-								    <div class="error-password"></div>
+								    <div class="error-password"><?php $translate->__('Введите пароль. Не меньше 4 знаков.')?></div>
 								   </td>
 					</tr>
 					<tr>
@@ -54,6 +61,5 @@
 					<button type="button" id="changePass" ><?php $translate->__('Изменить')?></button>
 				</section>
 				</form>
-				<div class="message" id="message"></div>
 	</fieldset>
 </center>
