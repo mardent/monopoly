@@ -15,10 +15,10 @@
 <form id="uploadForm">
 	<img id="avatar" src=<?="/images/avatars/".@$user->avatar?> style="width:304px;height:300px;">
 <br>
-	<input name="userImage" type="file" />
+	<input name="userImage" id="userImage" type="file" />
 	<input type="submit" value="Submit" />
 </form>
-
+<div class="error-avatar" style="margin-left:760px;"><?php $translate->__('Выберите файл') ?></div>
 <button id="deleteAvatar" onClick="deleteAvatar()"><?php $translate->__('Удалить')?></button>
 
 <br>

@@ -117,6 +117,23 @@ hr {
 	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#feffff', endColorstr='#d2ebf9',GradientType=0 ); /* IE6-9 */
 }
 
+.error-avatar {
+	position: absolute;
+	display: none;
+    font-size: 12px;
+	border: 1px solid red;
+	padding: 5px;
+	border-radius: 10px;
+	text-align: center;
+	background: -moz-linear-gradient(top,  #feffff 0%, #d2ebf9 100%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#feffff), color-stop(100%,#d2ebf9)); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top,  #feffff 0%,#d2ebf9 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(top,  #feffff 0%,#d2ebf9 100%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(top,  #feffff 0%,#d2ebf9 100%); /* IE10+ */
+	background: linear-gradient(to bottom,  #feffff 0%,#d2ebf9 100%); /* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#feffff', endColorstr='#d2ebf9',GradientType=0 ); /* IE6-9 */
+}
+
 .form_message {
 	position: absolute;
 	width: 250px;

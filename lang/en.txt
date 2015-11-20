@@ -61,3 +61,4 @@ e-mail=email
 Ошибка 404=Error 404
 К сожалению такой странички<br/>не найдено. Администрация сайта<br/>приносит вам свои извенения.<br/>=Unfortunately this page<br/>not found. Administration of<br/>this site brings you my apologies.<br/>
 Ошибка на сервере. Попробуйте еще раз=The error on the server. try again
+Выберите файл=Choose File

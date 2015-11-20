@@ -2,6 +2,10 @@
 $(function() {	
 	$("#uploadForm").on('submit',(function(e) {
 		e.preventDefault();
+		if($('#userImage').val() === ''){
+			$('.error-avatar').fadeIn(200, function(){ $(this).css('display','block')}).fadeOut(4000, function(){ $(this).css('display','none')});
+			return false;
+		}
 		$.ajax({
         	url: "/app/inc/upload.php",
 			type: "POST",
