@@ -42,7 +42,7 @@ body {
 }
 
 .lang{
-	width: 100px;
+	width: 35px;
 	height: 30px;
 	font-size: 1.2em;
 }
@@ -50,6 +50,7 @@ body {
 #english{
 	background-image: url('../images/uk.png');	
 	background-repeat: no-repeat;
+
 }
 
 #russian{
@@ -646,7 +647,7 @@ fieldset.profile  #changePass{
 /*Страница кабинетов начало блока*/
 .button_for_registered {
 	position: relative;
-	margin-left: 600px;
+	margin-left: 750px;
 	display: inline-block; 
 	font-size: 1.1em;
 }
