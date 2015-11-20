@@ -3,17 +3,17 @@ require_once 'db.php';
 class Library {
 		const USERS_FILE = 'app/inc/.htpasswd';
 		
-		/*Ð¤ÑƒÐ½ÐºÑ†Ð¸Ñ Ð¾Ð±Ñ€Ð°Ð±Ð¾Ñ‚ÐºÐ¸ Ð¿Ñ€Ð¸Ð½ÑÑ‚Ñ‹Ñ… Ð´Ð°Ð½Ð½Ñ‹Ñ… Ñ‚Ð¸Ð¿Ð° integer*/
+		/*Ôóíêöèÿ îáðàáîòêè ïðèíÿòûõ äàííûõ òèïà integer*/
 			public static  function clearInt($data){
 				return abs((int)$data);
 			}
 			
-		/*Ð¤ÑƒÐ½ÐºÑ†Ð¸Ñ Ð¾Ð±Ñ€Ð°Ð±Ð¾Ñ‚ÐºÐ¸ Ð¿Ñ€Ð¸Ð½ÑÑ‚Ñ‹Ñ… Ð´Ð°Ð½Ð½Ñ‹Ñ… Ñ‚Ð¸Ð¿Ð° string*/
+		/*Ôóíêöèÿ îáðàáîòêè ïðèíÿòûõ äàííûõ òèïà string*/
 			public static function clearStr($data){
 				return addslashes(trim(strip_tags($data)));
 			}
 		
-		/*ÐŸÐ¾Ð»ÑƒÑ‡Ð°ÐµÑ‚ Ð¿Ð°Ñ€Ð¾Ð»ÑŒ Ð¸Ð· Ñ„Ð¾Ñ€Ð¼Ñ‹ Ð¸ Ñ…ÐµÑˆÐ¸Ñ€ÑƒÐµÑ‚ c Ð²Ñ€ÐµÐ¼ÐµÐ½Ð½Ð¾Ð¹ Ð¼ÐµÑ‚ÐºÐ¾Ð¹ Ñ€ÐµÐ³Ð¸ÑÑ‚Ñ€Ð°Ñ†Ð¸Ð¸ */
+		/*Ïîëó÷àåò ïàðîëü èç ôîðìû è õåøèðóåò c âðåìåííîé ìåòêîé ðåãèñòðàöèè */
 			private static function passEncrypt($pass, $solt = false){
 					if(!$solt){	
 						$key = md5(time());
@@ -25,21 +25,21 @@ class Library {
 				return $res;
 			}
 		
-		//Ð”Ð°Ñ‚Ð° Ð½Ð° Ñ€ÑƒÑÑÐºÐ¾Ð¼
+		//Äàòà íà ðóññêîì
 			public static function getRusDate($padeg = true ,$timestamp = false){
 								$rus_name = [
-											'Jan' => array('Ð¯Ð½Ð²Ð°Ñ€ÑŒ','Ð¯Ð½Ð²Ð°Ñ€Ñ'),
-											'Feb' => array('Ð¤ÐµÐ²Ñ€Ð°Ð»ÑŒ','Ð¤ÐµÐ²Ñ€Ð°Ð»Ñ'),
-											'Mar' => array('ÐœÐ°Ñ€Ñ‚','ÐœÐ°Ñ€Ñ‚Ð°'),
-											'Apr' => array('ÐÐ¿Ñ€ÐµÐ»ÑŒ','ÐÐ¿Ñ€ÐµÐ»Ñ'),
-											'May' => array('ÐœÐ°Ð¹','ÐœÐ°Ñ'),
-											'Jun' => array('Ð˜ÑŽÐ½ÑŒ','Ð˜ÑŽÐ½Ñ'),
-											'Jul' => array('Ð˜ÑŽÐ»ÑŒ','Ð˜ÑŽÐ»Ñ'),
-											'Aug' => array('ÐÐ²Ð³ÑƒÑÑ‚','ÐÐ²Ð³ÑƒÑÑ‚Ð°'),
-											'Sep' => array('Ð¡ÐµÐ½Ñ‚ÑÐ±Ñ€ÑŒ','Ð¡ÐµÐ½Ñ‚ÑÐ±Ñ€Ñ'),
-										   'Oct' => array('ÐžÐºÑ‚ÑÐ±Ñ€ÑŒ','ÐžÐºÑ‚ÑÐ±Ñ€Ñ'),
-										   'Nov' => array('ÐÐ¾ÑÐ±Ñ€ÑŒ','ÐÐ¾ÑÐ±Ñ€Ñ'),
-										   'Dec' => array('Ð”ÐµÐºÐ°Ð±Ñ€ÑŒ','Ð”ÐµÐºÐ°Ð±Ñ€Ñ')
+											'Jan' => array('ßíâàðü','ßíâàðÿ'),
+											'Feb' => array('Ôåâðàëü','Ôåâðàëÿ'),
+											'Mar' => array('Ìàðò','Ìàðòà'),
+											'Apr' => array('Àïðåëü','Àïðåëÿ'),
+											'May' => array('Ìàé','Ìàÿ'),
+											'Jun' => array('Èþíü','Èþíÿ'),
+											'Jul' => array('Èþëü','Èþëÿ'),
+											'Aug' => array('Àâãóñò','Àâãóñòà'),
+											'Sep' => array('Ñåíòÿáðü','Ñåíòÿáðÿ'),
+										   'Oct' => array('Îêòÿáðü','Îêòÿáðÿ'),
+										   'Nov' => array('Íîÿáðü','Íîÿáðÿ'),
+										   'Dec' => array('Äåêàáðü','Äåêàáðÿ')
 										];
 							if(!$timestamp){
 								$year = date('Y');
@@ -57,7 +57,7 @@ class Library {
 							return $res;
 						}
 
-		//Ð¡Ð¾Ð·Ð´Ð°Ð½Ð¸Ðµ Ð¿Ð¾Ð»ÑŒÐ·Ð¾Ð²Ð°Ñ‚ÐµÐ»Ñ Ñ Ð¿Ð¾Ð´Ð³Ð¾Ñ‚Ð¾Ð²Ð»ÐµÐ½Ð½Ñ‹Ð¼ Ð·Ð°Ð¿Ñ€Ð¾ÑÐ¾Ð¼
+		//Ñîçäàíèå ïîëüçîâàòåëÿ ñ ïîäãîòîâëåííûì çàïðîñîì
 				public static function addUser($login, $password, $name, $email) {
 								$solt = md5(time());
 								$passCrypt = self::passEncrypt($password, $solt);
@@ -76,7 +76,7 @@ class Library {
 								return true;
 							}
 
-		//Ð’Ñ‹Ð²Ð¾Ð´ Ð´Ð°Ð½Ð½Ñ‹Ñ… Ð¿Ð¾Ð»ÑŒÐ·Ð¾Ð²Ð°Ñ‚ÐµÐ»Ñ Ð¸Ð· Ð±Ð°Ð·Ñ‹
+		//Âûâîä äàííûõ ïîëüçîâàòåëÿ èç áàçû
 				public static function getUser($login, $password) {
 								$query = sprintf("SELECT * FROM USERS WHERE LOGIN = '%s'", 
 									mysqli_real_escape_string(DataBase::Connect(), $login));
@@ -104,7 +104,7 @@ class Library {
 								return $user;
 							}
 							
-		//Ð’Ñ‹Ð²Ð¾Ð´ Ð´Ð°Ð½Ð½Ñ‹Ñ… Ð¿Ð¾Ð»ÑŒÐ·Ð¾Ð²Ð°Ñ‚ÐµÐ»Ñ Ð¸Ð· Ð±Ð°Ð·Ñ‹ Ð¿Ð¾ email
+		//Âûâîä äàííûõ ïîëüçîâàòåëÿ èç áàçû ïî email
 				public static function getDataFromMail($email) {
 								$query = sprintf("SELECT * FROM USERS WHERE EMAIL = '%s'", 
 									mysqli_real_escape_string(DataBase::Connect(), $email));
@@ -128,7 +128,7 @@ class Library {
 							}
 		
 		
-		// Ð¤ÑƒÐ½ÐºÑ†Ð¸Ñ Ð¿Ñ€Ð¾Ð²ÐµÑ€ÐºÐ¸ Ð½Ð° Ð´Ð¾ÑÑ‚ÑƒÐ¿Ð½Ð¾ÑÑ‚ÑŒ Ð»Ð¾Ð³Ð¸Ð½Ð°
+		// Ôóíêöèÿ ïðîâåðêè íà äîñòóïíîñòü ëîãèíà
 				public static function isLoginFree($login) {
 								$query = sprintf("SELECT * FROM USERS WHERE LOGIN = '%s'",
 											mysqli_real_escape_string(DataBase::Connect(), $login));
@@ -142,7 +142,7 @@ class Library {
 									return false;
 								}
 							}
-		// Ð¤ÑƒÐ½ÐºÑ†Ð¸Ñ Ð¿Ñ€Ð¾Ð²ÐµÑ€ÐºÐ¸ Ð½Ð° Ð´Ð¾ÑÑ‚ÑƒÐ¿Ð½Ð¾ÑÑ‚ÑŒ email
+		// Ôóíêöèÿ ïðîâåðêè íà äîñòóïíîñòü email
 				public static function isMailFree($email) {
 								$query = sprintf("SELECT * FROM USERS WHERE EMAIL = '%s'",
 											mysqli_real_escape_string(DataBase::Connect(), $email));
@@ -156,7 +156,7 @@ class Library {
 									return false;
 								}
 							}
-		//Ð¤ÑƒÐ½ÐºÑ†Ð¸Ñ Ð¿Ð¾Ð»ÑƒÑ‡Ð°ÐµÑ‚ Ñ„Ð°Ð¹Ð»  Ð¸ Ð°ÑÑÐ¾Ñ†Ð¸Ð°Ñ‚Ð¸Ð²Ð½Ñ‹Ð¹ Ð¼Ð°ÑÑÐ¸Ð² ÐºÐ¾Ñ‚Ð¾Ñ€Ñ‹Ð¹ Ð¿Ñ€ÐµÐ²Ñ€Ð°Ñ‰Ð°ÐµÑ‚ Ð² Ð¿ÐµÑ€ÐµÐ¼ÐµÐ½Ð½Ñ‹Ðµ Ð¸ Ð·Ð°Ð¿Ð¾Ð»Ð½ÑÐµÑ‚ Ð½Ð¸Ð¼Ð¸ Ð¿Ð¾Ð»ÑƒÑ‡ÐµÐ½Ð½Ñ‹Ð¹ Ñ„Ð°Ð¹Ð»
+		//Ôóíêöèÿ ïîëó÷àåò ôàéë  è àññîöèàòèâíûé ìàññèâ êîòîðûé ïðåâðàùàåò â ïåðåìåííûå è çàïîëíÿåò íèìè ïîëó÷åííûé ôàéë
 					public static function fillVars($filename, $vars){
 							ob_start();
 							extract($vars, EXTR_OVERWRITE);
@@ -165,7 +165,7 @@ class Library {
 							ob_end_clean();
 							return $text;
 					}
-		//Ð˜Ð·Ð¼ÐµÐ½ÐµÐ½Ð¸Ðµ Ð¿Ð°Ñ€Ð¾Ð»Ñ ÑÐ¾ ÑÑ‚Ñ€Ð°Ð½Ð¸Ñ†Ñ‹ Ð¿Ñ€Ð¾Ñ„Ð¸Ð»Ñ Ð¿Ð¾Ð»ÑŒÐ·Ð¾Ð²Ð°Ñ‚ÐµÐ»Ñ
+		//Èçìåíåíèå ïàðîëÿ ñî ñòðàíèöû ïðîôèëÿ ïîëüçîâàòåëÿ
 		public static function changePassword($login, $oldPass, $newPass) {
 				$query = sprintf("SELECT * FROM USERS WHERE LOGIN = '%s'", 
 					mysqli_real_escape_string(DataBase::Connect(), $login));
@@ -197,7 +197,7 @@ class Library {
 			DataBase::Close();
 			return true;
 		}
-		// Ð¤ÑƒÐ½ÐºÑ†Ð¸Ñ Ð¸Ð·Ð¼ÐµÐ½ÐµÐ½Ð¸Ñ Ð¿Ð°Ñ€Ð¾Ð»Ñ Ð¿Ð¾ Ñ‚Ð¾ÐºÐµÐ½Ñƒ  Ð¿Ð¾Ð»ÑƒÑ‡ÐµÐ½Ð½Ð¾Ð¼Ñƒ Ð½Ð° Ð¿Ð¾Ñ‡Ñ‚Ñƒ
+		// Ôóíêöèÿ èçìåíåíèÿ ïàðîëÿ ïî òîêåíó  ïîëó÷åííîìó íà ïî÷òó
 		public static function changeForgotPassword($login, $password) {
 				$query = sprintf("SELECT * FROM USERS WHERE LOGIN = '%s'", 
 					mysqli_real_escape_string(DataBase::Connect(), $login));
@@ -222,7 +222,7 @@ class Library {
 			return true;
 		}
 		
-		// Ð¤ÑƒÐ½ÐºÑ†Ð¸Ñ Ñ€Ð°Ð·Ð½Ð¸Ñ†Ñ‹ Ð”Ð²ÑƒÑ… Ð²Ñ€ÐµÐ¼ÐµÐ½Ð½Ñ‹Ñ… Ð¼ÐµÑ‚Ð¾Ðº
+		// Ôóíêöèÿ ðàçíèöû Äâóõ âðåìåííûõ ìåòîê
 		public static function diffDate ($dateBig, $dateSmall){
 			if($dateBig > $dateSmall){
 				$diff = date('d', $dateBig) - date('d', $dateSmall);
@@ -232,17 +232,17 @@ class Library {
 			return $diff;
 		}
 		
-	//Avarar updating
-	public static function changeAvatar($login, $avatar) {
-		$stmt = mysqli_stmt_init(DataBase::Connect());
-		$query = "UPDATE USERS SET AVATAR_URL = ? WHERE LOGIN = ?";
-		if(!mysqli_stmt_prepare($stmt, $query))
-			return false;
-		mysqli_stmt_bind_param($stmt, "ss", $avatar, $login);	
-		mysqli_stmt_execute($stmt);
-		mysqli_stmt_close($stmt);
-		return true;
-	}
+		//Avarar updating
+		public static function changeAvatar($login, $avatar) {
+			$stmt = mysqli_stmt_init(DataBase::Connect());
+			$query = "UPDATE USERS SET AVATAR_URL = ? WHERE LOGIN = ?";
+			if(!mysqli_stmt_prepare($stmt, $query))
+				return false;
+			mysqli_stmt_bind_param($stmt, "ss", $avatar, $login);	
+			mysqli_stmt_execute($stmt);
+			mysqli_stmt_close($stmt);
+			return true;
+		}
 }
 
 ?>

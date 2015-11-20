@@ -1,10 +1,17 @@
+<?php 
+	if(isset($_SESSION["lang"])){
+		$translate = new Translator($_SESSION["lang"]);
+	}else{
+		$translate = new Translator('ru');
+	}
+?>
 <table class="cabinets_table" border="1">
 	<tr class="first_row">
-		<th>Имя</th>
-		<th>Пароль</th>
-		<th>Игроки</th>
-		<th>Время хода</th>
-		<th>Стартовый капитал</th>
+		<th><?php $translate->__('Имя')?></th>
+		<th><?php $translate->__('Пароль')?></th>
+		<th><?php $translate->__('Игроки')?></th>
+		<th><?php $translate->__('Время хода')?></th>
+		<th><?php $translate->__('Стартовый капитал')?></th>
 	</tr>
 	<tr>
 		<td>Test_1</td>
@@ -34,9 +41,9 @@
 ?>
 </table>
 <section class="cabinet_button">
-	<button id="back" onClick="">Войти</button>
-	<button id="create" onClick="">Создать</button>
-	<button id="refresh" onClick="">Обновить</button>
+	<button id="back" onClick=""><?php $translate->__('Войти')?></button>
+	<button id="create" onClick=""><?php $translate->__('Создать')?></button>
+	<button id="refresh" onClick=""><?php $translate->__('Обновить')?></button>
 <section>
 
 

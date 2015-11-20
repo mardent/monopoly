@@ -4,12 +4,12 @@
 		 private $encoding;
 		 private $newhead;
 
-		  /* Ð¡Ð¼ÐµÐ½Ð° ÐºÐ¾Ð´Ð¸Ñ€Ð¾Ð²ÐºÐ¸ */
+		  /* Ñìåíà êîäèðîâêè */
 		  private function setEncoding($encoding) {
 			$this->encoding = $encoding;
 		  }
 
-		 //ÐžÑ‚Ð¿Ñ€Ð°Ð²ÐºÐ° Ð¿Ð¸ÑÑŒÐ¼Ð°
+		 //Îòïðàâêà ïèñüìà
 			 public function sendMail($mail){
 					list($head, $body) = preg_split("/\r?\n\r?\n/s", $mail, 2);
 					$to ='';
@@ -26,7 +26,7 @@
 						return true;
 			}
 			
-		//ÐšÐ¾Ð´Ð¸Ñ€Ð¾Ð²Ð°Ð½Ð¸Ðµ Ð·Ð°Ð³Ð¾Ð»Ð¾Ð²ÐºÐ¾Ð²
+		//Êîäèðîâàíèå çàãîëîâêîâ
 			 public function mail_encoding($mail){
 					list($head, $body) = preg_split("/\r?\n\r?\n/s", $mail, 2);
 					$encoding ='';
@@ -40,7 +40,7 @@
 					return $this->newhead;
 			}
 			
-		//ÐšÐ¾Ð´Ð¸Ñ€Ð¾Ð²Ð°Ð½Ð¸Ðµ cÑ‚Ñ€Ð¾ÐºÐ¸
+		//Êîäèðîâàíèå còðîêè
 			 private function lineEncode($line){
 				 if(!$this->encoding) return $line;
 				 return preg_replace_callback(
@@ -49,7 +49,7 @@
 					$line );	 
 			 }
 			
-		//ÐšÐ¾Ð´Ð¸Ñ€Ð¾Ð²Ð°Ð½Ð¸Ðµ
+		//Êîäèðîâàíèå
 			private function callback_encode ($p){
 				preg_match('/^(.*?)(\s*)$/s', $p[1],$sp);
 				return "=?$this->encoding?B?".base64_encode($sp[1])."?=".$sp[2];

@@ -53,8 +53,7 @@ $(function() {
                 {
                    $(this).removeClass('not_error').addClass('err');
 				   $(this).css('border-color','red');
-                   $(this).next('.error-login').html('Поле "Логин" обязательно для заполнения, длина имени должна составлять не менее 2 символов, поле может содержать только русские или латинские буквы и ( _ , - , . )')
-											.fadeIn(800, function(){ $(this).css('display','block')}).fadeOut(6000, function(){$(this).css('display','none')});
+                   $(this).next('.error-login').fadeIn(800, function(){ $(this).css('display','block')}).fadeOut(6000, function(){$(this).css('display','none')});
                 }
             break;
 		   
@@ -71,7 +70,7 @@ $(function() {
                 {
                    $(this).addClass('err');
 				   $(this).css('border-color','red');
-                   $(this).next('.error-name').html('Поле "Имя" обязательно для заполнения. Длина не менее 2 символов и может содержать только русские или латинские буквы').fadeIn(800, function(){ $(this).css('display','block')}).fadeOut(6000, function(){$(this).css('display','none')});
+                   $(this).next('.error-name').fadeIn(800, function(){ $(this).css('display','block')}).fadeOut(6000, function(){$(this).css('display','none')});
                 }
             break;
 
@@ -88,8 +87,7 @@ $(function() {
                {
                   $(this).addClass('err');
 				  $(this).css('border-color','red');
-                  $(this).next('.error-email').html('Содержимое поля "Email" не является email адресом')
-									.fadeIn(800, function(){ $(this).css('display','block')}).fadeOut(3000, function(){$(this).css('display','none')});
+                  $(this).next('.error-email').fadeIn(800, function(){ $(this).css('display','block')}).fadeOut(3000, function(){$(this).css('display','none')});
                }
            break;
 		   
@@ -104,8 +102,7 @@ $(function() {
               {
                  $(this).addClass('err');
 				 $(this).css('border-color','red');
-                 $(this).next('.error-password').html('Введите пароль. Не меньше 4 знаков.')
-										   .fadeIn(400, function(){ $(this).css('display','block')}).fadeOut(3000, function(){$(this).css('display','none')});
+                 $(this).next('.error-password').fadeIn(400, function(){ $(this).css('display','block')}).fadeOut(3000, function(){$(this).css('display','none')});
               }
           break;
 		  
@@ -120,8 +117,7 @@ $(function() {
               {
                  $(this).addClass('err');
 				 $(this).css('border-color','red');
-                 $(this).next('.error-password').html('Введите пароль. Не меньше 4 знаков.')
-										   .fadeIn(400, function(){ $(this).css('display','block')}).fadeOut(3000, function(){$(this).css('display','none')});
+                 $(this).next('.error-password').fadeIn(400, function(){ $(this).css('display','block')}).fadeOut(3000, function(){$(this).css('display','none')});
               }
           break;
 		  
@@ -138,8 +134,7 @@ $(function() {
                 {
                    $(this).removeClass('not_error').addClass('err');
 				   $(this).css('border-color','red');
-                   $(this).next('.error-captcha').html('Введите изображение с картинки')
-											.fadeIn(800, function(){ $(this).css('display','block')}).fadeOut(6000, function(){$(this).css('display','none')});
+                   $(this).next('.error-captcha').fadeIn(800, function(){ $(this).css('display','block')}).fadeOut(6000, function(){$(this).css('display','none')});
                 }
             break;
 		  
@@ -165,8 +160,7 @@ $(function() {
 			e.preventDefault();
 				if($('.form').find('.err').length > 0)
 				{
-					$('.message').html('Внимательно заполните поля формы')
-										   .fadeIn(200, function(){ $(this).css('display','block')}).fadeOut(6000, function(){ $(this).css('display','none')});
+					$('.form_message').fadeIn(200, function(){ $(this).css('display','block')}).fadeOut(6000, function(){ $(this).css('display','none')});
 					$('.form').find('.err').each(function(){
 						$(this).fadeIn(200, function(){$(this).css({'border':'2px solid red'})});
 					});
@@ -327,28 +321,23 @@ function sendRegData(login, password, name, email, captcha){
 			captcha : captcha
         },
         success: function (data) {
-            if ("ok" === $(data).find("result").text().toLowerCase()) {
-				//location.replace("/");
+            if ($(data).find("success").text()) {
 				$('.input').val('').removeAttr('style');
 				$('#loading').css('display','none');
-				$('.message').html('Поздравляем. Вы успешно зарегистрированы!')
-						.fadeIn(200, function(){ $(this).css('display','block')}).fadeOut(6000, function(){ $(this).css('display','none')});
+				var text = $(data).find("success").text();
+				$('.message').html(text).fadeIn(200, function(){ $(this).css('display','block')}).fadeOut(6000, function(){ $(this).css('display','none')});
             } else {
-				//$('.input').val('').removeAttr('style');
-				$('#password').val('').removeAttr('style');
-				$('#confirm').val('').removeAttr('style');
+				$('#password, #confirm').val('').removeAttr('style');
 				document.getElementById('captcha_image').src='app/inc/captcha.php?'+Math.random();
 				$('#loading').css('display','none');
                 var text = $(data).find("result").text();
-				$('.message').html(text)
-						.fadeIn(200, function(){ $(this).css('display','block')}).fadeOut(6000, function(){ $(this).css('display','none')});
+				$('.message').html(text).fadeIn(200, function(){ $(this).css('display','block')}).fadeOut(6000, function(){ $(this).css('display','none')});
             }
         },
         error: function () {
 			$('.input').val('').removeAttr('style');
 			$('#loading').css('display','none');
-            $('.message').html('Ошибка при передаче данных. Попробуйте еще раз')
-						.fadeIn(200, function(){ $(this).css('display','block')}).fadeOut(6000, function(){ $(this).css('display','none')});
+            $('.error_message').fadeIn(200, function(){ $(this).css('display','block')}).fadeOut(6000, function(){ $(this).css('display','none')});
         }
     });
 }
@@ -364,7 +353,7 @@ function login(login, password) {
             password: password
         },
         success: function (data) {
-            if ("ok" === $(data).find("result").text().toLowerCase()) {
+            if ("ок" === $(data).find("success").text().toLowerCase()) {
                 location.replace("/cabinet");
 				$('.input').val('').removeAttr('style');
 				$('#loading').css('display','none');
@@ -372,15 +361,13 @@ function login(login, password) {
 				$('.input').val('').removeAttr('style');
 				$('#loading').css('display','none');
                 var text = $(data).find("result").text();
-				$('.message').html(text)
-						.fadeIn(200, function(){ $(this).css('display','block')}).fadeOut(6000, function(){ $(this).css('display','none')});
+				$('.message').html(text).fadeIn(200, function(){ $(this).css('display','block')}).fadeOut(6000, function(){ $(this).css('display','none')});
             }
         },
         error: function () {
 		   $('.input').val('').removeAttr('style');
 		   $('#loading').css('display','none');
-           $('.message').html('Ошибка при передаче данных. Попробуйте еще раз')
-						.fadeIn(200, function(){ $(this).css('display','block')}).fadeOut(6000, function(){ $(this).css('display','none')});
+           $('.error_message').fadeIn(200, function(){ $(this).css('display','block')}).fadeOut(6000, function(){ $(this).css('display','none')});
         }
    });
 }
@@ -396,11 +383,11 @@ function forgotPass(email) {
 			email: email
         },
         success: function (data) {
-            if ("ok" === $(data).find("result").text().toLowerCase()) {
+            if ($(data).find("success").text()) {
 				$('.input').val('').removeAttr('style');
 				$('#loading').css('display','none');
-				$('.message').html('Вам на почту отправлены дальнейшие инструкции')
-						.fadeIn(200, function(){ $(this).css('display','block')}).fadeOut(6000, function(){ $(this).css('display','none')});
+				var text = $(data).find("success").text();
+				$('.message').html(text).fadeIn(200, function(){ $(this).css('display','block')}).fadeOut(6000, function(){ $(this).css('display','none')});
             } else {
 				$('.input').val('').removeAttr('style');
 				$('#loading').css('display','none');
@@ -411,8 +398,7 @@ function forgotPass(email) {
         error: function () {
 		   $('.input').val('').removeAttr('style');
 		   $('#loading').css('display','none');
-           $('.message').html('Ошибка при передаче данных. Попробуйте еще раз')
-						.fadeIn(200, function(){ $(this).css('display','block')}).fadeOut(6000, function(){ $(this).css('display','none')});
+           $('.error_message').fadeIn(200, function(){ $(this).css('display','block')}).fadeOut(6000, function(){ $(this).css('display','none')});
         }
    });
 }
@@ -428,25 +414,24 @@ function change_forgot_password(password, confirm) {
 			confirm: confirm
         },
         success: function (data) {
-            if ("ok" === $(data).find("result").text().toLowerCase()) {
+            if ($(data).find("success").text()) {
 				$('.input').val('').removeAttr('style');
 				$('#loading').css('display','none');
-				$('.message').html('Пароль успешно изменен. Вы будете пренаправлены на страницу входа')
-						.fadeIn(200, function(){ $(this).css('display','block')}).fadeOut(6000, function(){ $(this).css('display','none')});
+				var text = $(data).find("success").text();
+				$('.message').html(text).fadeIn(200, function(){ $(this).css('display','block')}).fadeOut(6000, function(){ $(this).css('display','none')});
 				var delay = 6000;
 				setTimeout("document.location.href='/'", delay);
             } else {
 				$('.input').val('').removeAttr('style');
 				$('#loading').css('display','none');
-				$('.message').html($(data).find("result").text())
-						.fadeIn(200, function(){ $(this).css('display','block')}).fadeOut(6000, function(){ $(this).css('display','none')});
+				var text = $(data).find("result").text();
+				$('.message').html(text).fadeIn(200, function(){ $(this).css('display','block')}).fadeOut(6000, function(){ $(this).css('display','none')});
             }
         },
         error: function () {
 		   $('.input').val('').removeAttr('style');
 		   $('#loading').css('display','none');
-           $('.message').html('Ошибка при передаче данных. Попробуйте еще раз')
-						.fadeIn(200, function(){ $(this).css('display','block')}).fadeOut(6000, function(){ $(this).css('display','none')});
+           $('.error_message').fadeIn(200, function(){ $(this).css('display','block')}).fadeOut(6000, function(){ $(this).css('display','none')});
         }
    });
 }
@@ -460,11 +445,11 @@ function Exit(){
             action: "exit"
 		},
         success: function (data) {
-            if ("ok" === $(data).find("result").text().toLowerCase()) {
+            if ($(data).find("success").text()) {
 				$('.input').val('').removeAttr('style');
 				$('#loading').css('display','none');
-				$('.message').html('Досвидания')
-						.fadeIn(200, function(){ $(this).css('display','block')}).fadeOut(6000, function(){ $(this).css('display','none')});
+				var text = $(data).find("success").text();
+				$('.message').html(text).fadeIn(200, function(){ $(this).css('display','block')}).fadeOut(6000, function(){ $(this).css('display','none')});
 				var delay = 500;
 				setTimeout("document.location.href='/'", delay);
             } else {
@@ -477,8 +462,7 @@ function Exit(){
         error: function () {
 		   $('.input').val('').removeAttr('style');
 		   $('#loading').css('display','none');
-           $('.message').html('Ошибка')
-						.fadeIn(200, function(){ $(this).css('display','block')}).fadeOut(6000, function(){ $(this).css('display','none')});
+           $('.error_message').fadeIn(200, function(){ $(this).css('display','block')}).fadeOut(6000, function(){ $(this).css('display','none')});
         }
 
         });
@@ -500,11 +484,11 @@ function change_Password( old, password, confirm ) {
 				confirm : confirm
 			},
 			success: function (data) {
-            if ("ok" === $(data).find("result").text().toLowerCase()) {
+            if ($(data).find("success").text()) {
 				$('.input').val('').removeAttr('style');
 				$('#loading').css('display','none');
-				$('.message').html('Пароль успешно изменен')
-						.fadeIn(200, function(){ $(this).css('display','block')}).fadeOut(6000, function(){ $(this).css('display','none')});
+				var text = $(data).find("success").text();
+				$('.message').html(text).fadeIn(200, function(){ $(this).css('display','block')}).fadeOut(6000, function(){ $(this).css('display','none')});
             } else {
 				$('.input').val('').removeAttr('style');
 				$('#loading').css('display','none');
@@ -515,8 +499,28 @@ function change_Password( old, password, confirm ) {
         error: function () {
 		   $('.input').val('').removeAttr('style');
 		   $('#loading').css('display','none');
-           $('.message').html('Ошибка при передаче данных. Попробуйте еще раз')
-						.fadeIn(200, function(){ $(this).css('display','block')}).fadeOut(6000, function(){ $(this).css('display','none')});
+           $('.error_message').fadeIn(200, function(){ $(this).css('display','block')}).fadeOut(6000, function(){ $(this).css('display','none')});
+        }
+
+	   });
+	}
+
+function Translator(lang){
+	$.ajax({
+			dataType: "xml",
+			url: "/app/inc/actions.php",
+			type: "POST",
+			data: {
+				action : "lang",
+				lang : lang
+			},
+		success: function (data) {
+			if ($(data).find("success")){
+					location.reload();
+			}
+        },
+        error: function () {
+		  	alert('Ошибка на сервере');
         }
 
 	   });

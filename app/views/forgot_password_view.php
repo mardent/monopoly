@@ -1,23 +1,24 @@
-<?php if(!$data){ ?>
+<?php 
+	if(isset($_SESSION["lang"])){
+		$translate = new Translator($_SESSION["lang"]);
+	}else{
+		$translate = new Translator('ru');
+	}
+if(!$data){ ?>
 
 <form class="forgot_password form">
-	<label class="label" for="email">Введите Ваш e-mail адрес</label>
+	<label class="label" for="email"><?php $translate->__('Введите Ваш e-mail адрес')?></label>
 	<input class="input" type="text" id="email" placeholder="email">
 	<div class="error-email" style=" margin-left:400px; margin-top:-50px;"></div>
 	<div class="message" style=" margin-left:50px; margin-top:-100px;"></div>
 	<section class="button">
-		<button type="button" id="back" onclick="clickBack()"> Назад</button>
-		<button id="recover" >Восстановить</button>
+		<button type="button" id="back" onclick="clickBack()"><?php $translate->__('Назад')?></button>
+		<button id="recover" ><?php $translate->__('Восстановить')?></button>
 	</section>
 </form>
 
 <?php }else{
 	//Если параметров несколько, то делим полученную строку по параметрам (тоесть &)
-	/*	
-		echo "<pre>",
-			var_dump($data),
-			 "</pre>";
-	*/
 		extract($data);
 		list($time, $user)= @preg_split("/\r?\n/s", $_SESSION['forgot']);
 		if(@$u == $user && @$t == $time){
@@ -33,37 +34,36 @@
 				
 ?>
 <fieldset class="change_forgot_password "  >
-<legend>Изменения пароля</legend>
+<legend><?php $translate->__('Изменения пароля')?></legend>
 				<form class="form">
 				<table>
 					<tr>
-						<td><label class="label" for="password">Пароль*</label></td>
+						<td><label class="label" for="password"><?php $translate->__('Пароль*')?></label></td>
 						<td><input class="input" type="password" id="password" size="16" maxlength="128"
-								   placeholder="пароль">
-								   <div class="error-password"></div>
+								   placeholder="<?php $translate->__('пароль')?>">
+								   <div class="error-password"><?php $translate->__('Введите пароль. Не меньше 4 знаков.')?></div>
 								   </td>
 					</tr>
 					<tr>
-						<td><label class="label" for="confirmPassword">Подтверждение*</label></td>
+						<td><label class="label" for="confirmPassword"><?php $translate->__('Подтверждение*')?></label></td>
 						<td><input class="input" type="password" id="confirm" size="16" maxlength="128"
-								   placeholder="подтверждение" >
+								   placeholder="<?php $translate->__('подтверждение')?>" >
 								    <div class="error-confirm"></div>
 								   </td>
 					</tr>
 				</table>
 				<section class = "button">
-					<button type="button" id="back" onClick="clickBack()">Назад</button>
-					<button  id="change_forgot_pass"  class="reg">Восстановить</button>
+					<button type="button" id="back" onClick="clickBack()"><?php $translate->__('Назад')?></button>
+					<button  id="change_forgot_pass"  class="reg"><?php $translate->__('Восстановить')?></button>
 				</section>
 				</form>
-				<div class="message" id="message"></div>
 </fieldset>
 
 <?php 
 			}else{
 				unset($_SESSION['forgot']);
-				echo "Ссылка устарела<br>";
-				echo "<a href='/'>На главную</a>";
+				echo "<?php $translate->__('Ссылка устарела<br>')?>";
+				echo "<a href='/'><?php $translate->__('На главную')?></a>";
 				header( 'Refresh: 3; url=/' );
 				//exit;
 	  }

@@ -13,6 +13,25 @@
 	height: 120px;
 }
 
+.header_button{
+	position: relative;
+	width: 88%;
+	margin-top: 50px;
+	float: right;
+}
+
+.button_lang{
+	position: relative;
+	display: inline-block; 
+	
+}
+
+.button{
+	width: 100px;
+	height: 30px;
+	font-size: 1.2em;
+}
+
 body {
 	background-image: url('../images/bg_page.png');	
 }
@@ -27,34 +46,6 @@ body {
 	height:120px;
 	border: 2px solid #000;
 	background-color: #E5FDE0;
-}
-
-.header_button{
-	position: relative;
-	width: 88%;
-	margin-top: 50px;
-	float: right;
-}
-
-.button_lang{
-	position: relative;
-	display: inline-block; 	
-}
-
-.lang{
-	width: 100px;
-	height: 30px;
-	font-size: 1.2em;
-}
-
-#english{
-	background-image: url('../images/uk.png');	
-	background-repeat: no-repeat;
-}
-
-#russian{
-	background-image: url('../images/rus.png');	
-	background-repeat: no-repeat;
 }
 
 .content {
@@ -81,8 +72,6 @@ hr {
 .message {
 	position: absolute;
 	width: 250px;
-	margin-left: 35%;
-	margin-top: -85%;
 	display: none;
     font-size: 12px;
 	border: 1px solid red;

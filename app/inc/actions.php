@@ -4,7 +4,12 @@
 	require_once '../core/lib.php';
 	require_once '../core/mail.php';
 	require_once '../core/crypt.php';
-
+	require_once '../core/translation.php';
+	if(isset($_SESSION["lang"])){
+		$translate = new Translator($_SESSION["lang"], '../../lang/');
+	}else{
+		$translate = new Translator('en', '../../lang/');
+	} 
 // Конструкция для проверки авторизационных данных либо регистрации нового пользователя
 	if(!empty($_POST)) {
 		header("Content-type: text/txt; charset=UTF-8");
@@ -14,10 +19,11 @@
 				$password = Library::clearStr($_POST["password"]);
 				$user = Library::getUser($login, $password);
 				if ($user == null) {
-					echo "<result>Неправильный логин или пароль</result>";
+					$translate->TransForScript("Неправильный логин или пароль");
 				} else {
 					$_SESSION["user"] = serialize($user);
-					echo "<result>ok</result>";
+					$translate->TransForScript("ок", "success");
+
 				}
 				
 			break;
@@ -34,14 +40,14 @@
 				if ( empty($captcha_input) ) {
 				} elseif ( empty($captcha_session) ) {
 				} elseif ( $captcha_input != $captcha_session ) {
-					echo "<result>Вы ввели неправильную капчу</result>";
+					$translate->TransForScript("Вы ввели неправильную капчу");
 				} elseif (!Library::isLoginFree($login)) {
-					echo "<result>Пользователь с таким логином уже существует</result>";
+					$translate->TransForScript("Пользователь с таким логином уже существует");
 				} elseif (!Library::isMailFree($email)) {
-					echo "<result>Пользователь с таким email адресом уже существует</result>";
+					$translate->TransForScript("Пользователь с таким email адресом уже существует");
 				} else {
 					Library::addUser($login, $password, $name, $email);
-					echo "<result>ok</result>";
+					$translate->TransForScript("Поздравляем. Вы успешно зарегистрированы!", "success");
 				}
 			break;
 			
@@ -50,15 +56,15 @@
 				$password =  Library::clearStr($_POST["password"]);
 				$confirm = Library::clearStr($_POST["confirm"]);
 				if ($password != $confirm) {
-					echo "<result>Пароли не совпадают</result>";
+					$translate->TransForScript("Пароли не совпадают");
 					break;
 				}
 				$login = unserialize($_SESSION["user"])->login;
 				if (Library::changePassword($login, $old, $password)) {
-					echo "<result>ok</result>";
+					$translate->TransForScript("Пароль успешно изменен", "success");
 					break;
 				} else {
-					echo "<result>Неверный старый пароль</result>";
+					$translate->TransForScript("Неверный старый пароль");
 					break;
 				}
 			break;
@@ -67,15 +73,15 @@
 				$password =  Library::clearStr($_POST["password"]);
 				$confirm = Library::clearStr($_POST["confirm"]);
 				if ($password!= $confirm) {
-					echo "<result>Пароли не совпадают</result>";
+					$translate->TransForScript("Пароли не совпадают");
 					break;
 				}
 				$login = $_SESSION['forgot_user'];
 				if (Library::changeForgotPassword($login, $password)) {
 					unset($_SESSION['forgot']);
-					echo "<result>ok</result>";
+					$translate->TransForScript("Пароль успешно изменен. Вы будете пренаправлены на страницу входа", "success");
 				}else{
-					echo "<result>Ошибка. Пароль не изменен</result>";
+					$translate->TransForScript("Ошибка. Пароль не изменен");
 				}
 			break;
 		
@@ -83,7 +89,7 @@
 				$email = Library::clearStr($_POST["email"]);
 				$user = Library::getDataFromMail($email);
 				if ($user == null) {
-					echo "<result>Пользователя с таким email адресом не существует</result>";
+					$translate->TransForScript("Пользователя с таким email адресом не существует");
 				} else {
 					$separator = getenv('COMSPEC')? "\r\n" : "\n";
 					$time = time();
@@ -105,7 +111,7 @@
 						return false;
 					if(!$newMail->sendMail($mail))
 						return false;
-						echo "<result>ok</result>";
+						$translate->TransForScript("Вам на почту отправлены дальнейшие инструкции", "success");
 					}		
 		   	break;
 			
@@ -120,13 +126,19 @@
 				echo "<result>$fileName</result>";
 			break;
 			
-			case "exit"; 
+			case "exit": 
 				unset($_SESSION["user"]);
-				echo "<result>ok</result>";
+				$translate->TransForScript("Досвидания", "success");
+			break;
+
+			case "lang": 
+				$lang = Library::clearStr($_POST["lang"]);
+				$_SESSION["lang"] = $lang;
+				$translate->TransForScript("ок", "success");
 			break;
 			
 			default:
-				echo "<result>Неизвестная ошибка</result>";
+				$translate->TransForScript("Неизвестная ошибка");
 	}
 	
 }	
