@@ -15,6 +15,7 @@ $(function() {
     	    cache: false,
 			processData:false,
         success: function (data) {
+			$('#userImage').val('')
 			var res = $(data).find("result").text();
 			if (res == "error") {
 				alert("Your file size is more 1Mb");
