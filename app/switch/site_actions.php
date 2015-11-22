@@ -1,10 +1,10 @@
 <?php
-	require_once '../core/user.php';
+	require_once '/../core/database/user.php';
 	session_start();
-	require_once '../core/lib.php';
-	require_once '../core/mail.php';
-	require_once '../core/crypt.php';
-	require_once '../core/translation.php';
+	require_once '/../core/site_lib/func_lib.php';
+	require_once '/../core/site_lib/send_mail.php';
+	require_once '/../core/site_lib/link_crypt.php';
+	require_once '/../core/site_lib/translation.php';
 	if(isset($_SESSION["lang"])){
 		$translate = new Translator($_SESSION["lang"], '../../lang/');
 	}else{
@@ -103,7 +103,7 @@
 					$to = $user->email;
 					$href = "<a href=http://".$_SERVER['HTTP_HOST']."/forgot_password/recover?u=".$userEnc."&t=".$timeEnc.">Восстановить</a>";
 					$newMail = new Mail();
-					$mail = Library::fillVars("mail.eml", array(
+					$mail = Library::fillVars("../core/site_lib/mail_templete.eml", array(
 						"to" => $to,
 						"href" => $href,
 					));

@@ -10,7 +10,6 @@ if(!$data){ ?>
 	<label class="label" for="email"><?php $translate->__('Введите Ваш e-mail адрес')?></label>
 	<input class="input" type="text" id="email" placeholder="email">
 	<div class="error-email" style=" margin-left:400px; margin-top:-50px;"></div>
-	<div class="message" style=" margin-left:50px; margin-top:-100px;"></div>
 	<section class="button">
 		<button type="button" id="back" onclick="clickBack()"><?php $translate->__('Назад')?></button>
 		<button id="recover" ><?php $translate->__('Восстановить')?></button>
@@ -26,7 +25,6 @@ if(!$data){ ?>
 		$timeDec = $timeEnc->getDecrypt();
 		$userEnc = new Encrypt( @$u);
 		$userDec = $userEnc->getDecrypt();
-		echo $userDec;
 		$_SESSION['forgot_user'] = $userDec;
 		$timeGet = time();
 		$diffTime = Library::diffDate($timeGet, $timeDec);

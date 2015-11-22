@@ -1,7 +1,7 @@
 <?php
-require_once 'db.php';
+require_once '/../database/db.php';
+require_once 'password_hash.php';
 class Library {
-		const USERS_FILE = 'app/inc/.htpasswd';
 		
 		/*Функция обработки принятых данных типа integer*/
 			public static  function clearInt($data){
@@ -11,18 +11,6 @@ class Library {
 		/*Функция обработки принятых данных типа string*/
 			public static function clearStr($data){
 				return addslashes(trim(strip_tags($data)));
-			}
-		
-		/*Получает пароль из формы и хеширует c временной меткой регистрации */
-			private static function passEncrypt($pass, $solt = false){
-					if(!$solt){	
-						$key = md5(time());
-					}else{
-						$key = $solt;
-					}
-						$crypt = crypt($pass, $key);
-						$res = sha1($crypt);
-				return $res;
 			}
 		
 		//Дата на русском
@@ -59,8 +47,8 @@ class Library {
 
 		//Создание пользователя с подготовленным запросом
 				public static function addUser($login, $password, $name, $email) {
-								$solt = md5(time());
-								$passCrypt = self::passEncrypt($password, $solt);
+								$solt = Password::createSalt();
+								$passCrypt = Password::create_hash($password, $solt);
 								$stmt = mysqli_stmt_init(DataBase::Connect());
 								$query = "INSERT INTO USERS (LOGIN,
 															PASSWORD,
@@ -89,8 +77,7 @@ class Library {
 									$row = mysqli_fetch_array ($result);
 									$solt = $row["SOLT"];
 									$passDb = $row["PASSWORD"];
-									$userInput = self::passEncrypt($password, $solt);
-									if($userInput != $passDb)
+									if(!Password::validate_password($password, $passDb, $solt))
 										return false;
 									$user = new User(
 													$row["LOGIN"],
@@ -178,12 +165,11 @@ class Library {
 					$row = mysqli_fetch_array ($result);
 					$solt = $row["SOLT"];
 					$passDb = $row["PASSWORD"];
-					$userInput = self::passEncrypt($oldPass, $solt);
-					if($userInput != $passDb) {
+					if(!Password::validate_password($oldPass, $passDb, $solt)){
 						return false;
 					} else {
-						$solt = md5(time());
-						$passCrypt = self::passEncrypt($newPass, $solt);
+						$solt = Password::createSalt();
+						$passCrypt = Password::create_hash($newPass, $solt);
 						$stmt = mysqli_stmt_init(DataBase::Connect());
 						$query = "UPDATE USERS SET PASSWORD = ?, SOLT = ? WHERE LOGIN = ?";	
 						if(!mysqli_stmt_prepare($stmt, $query))
@@ -207,8 +193,8 @@ class Library {
 					return false;
 				}
 				if (mysqli_num_rows($result) != 0){
-						$solt = md5(time());
-						$passCrypt = self::passEncrypt($password, $solts);
+						$solt = Password::createSalt();
+						$passCrypt = Password::create_hash($password, $solt);
 						$stmt = mysqli_stmt_init(DataBase::Connect());
 						$query = "UPDATE USERS SET PASSWORD = ?, SOLT = ? WHERE LOGIN = ?";	
 						if(!mysqli_stmt_prepare($stmt, $query))

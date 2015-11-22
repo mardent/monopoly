@@ -1,13 +1,13 @@
 <?php
-require_once '../core/user.php';
-require_once '../core/lib.php';
+require_once '../database/user.php';
+require_once 'func_lib.php';
 session_start();
 
 if(is_array($_FILES)) {
 	if(is_uploaded_file($_FILES['userImage']['tmp_name'])) {
 		
 		
-		$targetFolder = "../../images/avatars/";
+		$targetFolder = "../../../images/avatars/";
 		$fileName = generateRandomString();
 		$sourcePath = $_FILES['userImage']['tmp_name'];
 		$targetPath = $targetFolder.$fileName;
@@ -15,16 +15,10 @@ if(is_array($_FILES)) {
 		if (filesize($sourcePath) > 1050000) {
 			echo "<result>error</result>";
 		} else {
-			/*$dh = opendir($targetFolder);
-			while (false !== ($fileDirname = readdir($dh))) {
-				if ($fileDirname == $filename) {
-					$filename = $filename."2";
-				}
-			}*/
-			
+
 			$user = unserialize($_SESSION["user"]);
 			if ($user->avatar != 'Noavatar.png')
-				unlink("../../images/avatars/".$user->avatar);
+				unlink("../../../images/avatars/".$user->avatar);
 			if(move_uploaded_file($sourcePath, $targetPath)) {
 				Library::changeAvatar($user->login, $fileName);
 				$user->avatar = $fileName;

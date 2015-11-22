@@ -50,8 +50,8 @@ $_SESSION['captcha_session'] = substr(md5(uniqid("")), 0, 5);
 					</tr>
 					<tr>
 						<td></td>
-						<td><img alt="" id="captcha_image" src="app/inc/captcha.php">
-							<a href="#" onclick="document.getElementById('captcha_image').src='app/inc/captcha.php?'+Math.random();return false;"><img alt="<?php $translate->__('Обновить')?>" src="../../images/refresh.png">
+						<td><img alt="" id="captcha_image" src="app/core/site_lib/gen_captcha.php">
+							<a href="#" onclick="document.getElementById('captcha_image').src='app/core/site_lib/gen_captcha.php?'+Math.random();return false;"><img alt="<?php $translate->__('Обновить')?>" src="../../images/refresh.png">
 						</td>
 					</tr>
 					<tr>

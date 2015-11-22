@@ -7,7 +7,7 @@ $(function() {
 			return false;
 		}
 		$.ajax({
-        	url: "/app/inc/upload.php",
+        	url: "/app/core/site_lib/upload_image.php",
 			type: "POST",
 			dataType: "xml",
 			data:  new FormData(this),
@@ -43,7 +43,7 @@ function changePassword(oldPass, newPass1, newPass2) {
 	} else {
 		$.ajax({
 			dataType: "xml",
-			url: "/app/inc/actions.php",
+			url: "/app/switch/site_actions.php",
 			type: "POST",
 			data: {
 				action : "password_change",
@@ -68,7 +68,7 @@ function changePassword(oldPass, newPass1, newPass2) {
 function deleteAvatar() {
 	$.ajax({
 		dataType: "xml",
-		url: "/app/inc/actions.php",
+		url: "/app/switch/site_actions.php",
 		type: "POST",
 		data: {
 			action : "deleteAvatar"
