@@ -21,7 +21,7 @@
 			<section class="button">
 				<button id="log"><?php $translate->__('Войти')?></button>
 			</section>
-			<a href="/register"><?php $translate->__('Регистрация')?></a>/
+			<a href="/register"><?php $translate->__('Регистрация')?></a> /
 			<a href="/forgot_password"><?php $translate->__('Забыли пароль?')?></a>
 		</form>
 </fieldset>

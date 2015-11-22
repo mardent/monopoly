@@ -40,7 +40,7 @@ try{
 }catch (NotFound $e){
 	$e->Error();
 }catch (MyExceptions $e){
-	echo "<h2><?php $translate->__('Ссылка не действительна')?></h2>";
+	echo "<h2>".$translate->__('Ссылка не действительна')."</h2>";
 	header( 'Refresh: 3; url=/' );
 	$e->ForbiddenRequest();
 }

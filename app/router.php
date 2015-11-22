@@ -49,7 +49,7 @@ class Route
 					if(strpos($query,'&')){
 						foreach(explode('&',$query) as $row){
 						//Делим каждую полученную строку на параметр=значение
-							list($var, $val) = explode('=',$row);
+							@list($var, $val) = @explode('=',$row);
 							$query_vars[$var] = $val;
 						}
 					}else{
