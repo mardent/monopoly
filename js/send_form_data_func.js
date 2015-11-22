@@ -25,7 +25,7 @@ function sendRegData(login, password, name, email, captcha){
 				$('.message').html(text).fadeIn(200, function(){ $(this).css('display','block')}).fadeOut(6000, function(){ $(this).css('display','none')});
             } else {
 				$('#password, #confirm').val('').removeAttr('style');
-				document.getElementById('captcha_image').src='app/inc/captcha.php?'+Math.random();
+				document.getElementById('captcha_image').src='app/core/site_lib/gen_captcha.php?'+Math.random();
 				$('#loading').css('display','none');
                 var text = $(data).find("result").text();
 				$('.message').html(text).fadeIn(200, function(){ $(this).css('display','block')}).fadeOut(6000, function(){ $(this).css('display','none')});
