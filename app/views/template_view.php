@@ -12,8 +12,8 @@ if(isset($_SESSION["lang"])){
 				<a href="/" alt="Домой"><img class="home_img" src="../images/home.png"></a>
 			<section class="header_button">
 				<section class="button_lang">
-					<button class="lang" id="english" onClick="Translator('en')"><img class="lang_img" src="../images/uk.png"></button>
-					<button class="lang" id="russian" onClick="Translator('ru')"><img class="lang_img" src="../images/rus.png"></button>
+					<img class="lang_img" src="../images/uk.png" onClick="Translator('en')">
+					<img class="lang_img" src="../images/rus.png" onClick="Translator('ru')">
 				</section>
 <?php
 			if(@$_SESSION['user']){
