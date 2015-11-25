@@ -9,7 +9,7 @@ if(!$data){ ?>
 <form class="forgot_password form">
 	<label class="label" for="email"><?php $translate->__('Введите Ваш e-mail адрес')?></label>
 	<input class="input" type="text" id="email" placeholder="email">
-	<div class="error-email" style=" margin-left:400px; margin-top:-50px;"></div>
+	<div class="error-email" style=" margin-left:400px; margin-top:-50px;"><?php $translate->__('Ссылка не действительна')?></div>
 	<section class="button">
 		<button type="button" id="back" onclick="clickBack()"><?php $translate->__('Назад')?></button>
 		<button id="recover" ><?php $translate->__('Восстановить')?></button>

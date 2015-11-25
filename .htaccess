@@ -1,10 +1,19 @@
 RewriteEngine On
+Options -Includes 
 RewriteBase /
 RewriteCond %{HTTP_HOST} (.*)
 RewriteCond %{REQUEST_URI} /$ [NC]
 RewriteRule ^(.*)(/)$ $1 [L,R=301]
+
 RewriteCond %{REQUEST_FILENAME} !-f
-RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME} !-d 
 RewriteRule .* index.php [L]
+
+RewriteRule ^app$ http://%{HTTP_HOST}/ [L]
+RewriteRule ^css$ http://%{HTTP_HOST}/ [L]
+RewriteRule ^images$ http://%{HTTP_HOST}/ [L]
+RewriteRule ^js$ http://%{HTTP_HOST}/ [L]
+RewriteRule ^lang$ http://%{HTTP_HOST}/ [L]
+RewriteRule ^resources$ http://%{HTTP_HOST}/ [L]
 
 Options +FollowSymLinks
