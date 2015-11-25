@@ -1,6 +1,6 @@
 <?php
-require_once '/../database/db.php';
 require_once 'password_hash.php';
+require_once '/../database/safemysql.php';
 class Library {
 		
 		/*Функция обработки принятых данных типа integer*/
@@ -46,103 +46,69 @@ class Library {
 						}
 
 		//Создание пользователя с подготовленным запросом
-				public static function addUser($login, $password, $name, $email) {
+								public static function addUser($login, $password, $name, $email) {
 								$solt = Password::createSalt();
 								$passCrypt = Password::create_hash($password, $solt);
-								$stmt = mysqli_stmt_init(DataBase::Connect());
-								$query = "INSERT INTO USERS (LOGIN,
+								$db = new SafeMySQL();
+								$data = $db->query("INSERT INTO USERS (LOGIN,
 															PASSWORD,
 															NAME,
 															EMAIL,
 															SOLT)
-												VALUES (?,?,?,?,?)";	
-								if(!mysqli_stmt_prepare($stmt,$query))
-								return false;
-								mysqli_stmt_bind_param ($stmt, "sssss" ,$login, $passCrypt, $name, $email, $solt);	
-								mysqli_stmt_execute($stmt);
-								mysqli_stmt_close($stmt);
-								return true;
-							}
+												VALUES (?s,?s,?s,?s,?s)",$login, $passCrypt, $name, $email, $solt);
+								}
 
 		//Вывод данных пользователя из базы
 				public static function getUser($login, $password) {
-								$query = sprintf("SELECT * FROM USERS WHERE LOGIN = '%s'", 
-									mysqli_real_escape_string(DataBase::Connect(), $login));
-								if(!$result = mysqli_query(DataBase::Connect(), $query)){
-									mysqli_free_result($result);
-									DataBase::Close();
+								$db = new SafeMySQL();
+								if(!$result = $db->getRow("SELECT * FROM USERS WHERE LOGIN = ?s", $login)){
 									return false;
 								}
-								if (mysqli_num_rows($result) != 0) {
-									$row = mysqli_fetch_array ($result);
-									$solt = $row["SOLT"];
-									$passDb = $row["PASSWORD"];
+									$solt = $result["SOLT"];
+									$passDb = $result["PASSWORD"];
 									if(!Password::validate_password($password, $passDb, $solt))
 										return false;
 									$user = new User(
-													$row["LOGIN"],
-													$row["PASSWORD"],
-													$row["NAME"],
-													$row["EMAIL"],
-													$row["AVATAR_URL"]);
-								}
-								mysqli_free_result($result);
-								DataBase::Close();
-								return $user;
+													$result["LOGIN"],
+													$result["PASSWORD"],
+													$result["NAME"],
+													$result["EMAIL"],
+													$result["AVATAR_URL"]);
+									return $user;
 							}
 							
 		//Вывод данных пользователя из базы по email
-				public static function getDataFromMail($email) {
-								$query = sprintf("SELECT * FROM USERS WHERE EMAIL = '%s'", 
-									mysqli_real_escape_string(DataBase::Connect(), $email));
-								if(!$result = mysqli_query(DataBase::Connect(), $query)){
-									mysqli_free_result($result);
-									DataBase::Close();
-									return false;
-								}
-								if (mysqli_num_rows($result) != 0) {
-									$row = mysqli_fetch_array ($result);
+					public static function getDataFromMail($email) {
+									$db = new SafeMySQL();
+									if(!$result = $db->getRow("SELECT * FROM USERS WHERE EMAIL = ?s", $email)){
+										return false;
+									}
 									$user = new User(
-													$row["LOGIN"],
-													$row["PASSWORD"],
-													$row["NAME"],
-													$row["EMAIL"],
-													$row["AVATAR_URL"]);
+													$result["LOGIN"],
+													$result["PASSWORD"],
+													$result["NAME"],
+													$result["EMAIL"],
+													$result["AVATAR_URL"]);
+									return $user;
 								}
-								mysqli_free_result($result);
-								DataBase::Close();
-								return $user;
-							}
-		
+			
 		
 		// Функция проверки на доступность логина
 				public static function isLoginFree($login) {
-								$query = sprintf("SELECT * FROM USERS WHERE LOGIN = '%s'",
-											mysqli_real_escape_string(DataBase::Connect(), $login));
-								if(!$result = mysqli_query(DataBase::Connect(), $query)){
-									DataBase::Close();
-									return false;		
-								}else if(mysqli_num_rows($result) === 0){
-									DataBase::Close();
+								$db = new SafeMySQL();
+								if(!$result = $db->getRow("SELECT * FROM USERS WHERE LOGIN = ?s", $login))
 									return true;
-								}else{
-									return false;
-								}
+								return false;
 							}
+							
 		// Функция проверки на доступность email
 				public static function isMailFree($email) {
-								$query = sprintf("SELECT * FROM USERS WHERE EMAIL = '%s'",
-											mysqli_real_escape_string(DataBase::Connect(), $email));
-								if(!$result = mysqli_query(DataBase::Connect(), $query)){
-									DataBase::Close();
-									return false;		
-								}else if(mysqli_num_rows($result) === 0){
-									DataBase::Close();
+								$db = new SafeMySQL();
+								if(!$result = $db->getRow("SELECT * FROM USERS WHERE EMAIL = ?s", $email))
 									return true;
-								}else{
-									return false;
-								}
+								return false;
 							}
+							
 		//Функция получает файл  и ассоциативный массив который превращает в переменные и заполняет ними полученный файл
 					public static function fillVars($filename, $vars){
 							ob_start();
@@ -153,82 +119,48 @@ class Library {
 							return $text;
 					}
 		//Изменение пароля со страницы профиля пользователя
-		public static function changePassword($login, $oldPass, $newPass) {
-				$query = sprintf("SELECT * FROM USERS WHERE LOGIN = '%s'", 
-					mysqli_real_escape_string(DataBase::Connect(), $login));
-				if(!$result = mysqli_query(DataBase::Connect(), $query)){
-					mysqli_free_result($result);
-					DataBase::Close();
-					return false;
-				}
-				if (mysqli_num_rows($result) != 0) {
-					$row = mysqli_fetch_array ($result);
-					$solt = $row["SOLT"];
-					$passDb = $row["PASSWORD"];
-					if(!Password::validate_password($oldPass, $passDb, $solt)){
-						return false;
-					} else {
-						$solt = Password::createSalt();
-						$passCrypt = Password::create_hash($newPass, $solt);
-						$stmt = mysqli_stmt_init(DataBase::Connect());
-						$query = "UPDATE USERS SET PASSWORD = ?, SOLT = ? WHERE LOGIN = ?";	
-						if(!mysqli_stmt_prepare($stmt, $query))
-							return false;
-						mysqli_stmt_bind_param ($stmt, "sss", $passCrypt, $solt, $login);	
-						mysqli_stmt_execute($stmt);
-						mysqli_stmt_close($stmt);
+					public static function changePassword($login, $oldPass, $newPass) {
+								$db = new SafeMySQL();
+								if(!$result = $db->getRow("SELECT * FROM USERS WHERE LOGIN = ?s", $login))
+									return false;
+								$solt = $result["SOLT"];
+								$passDb = $result["PASSWORD"];
+								if(!Password::validate_password($oldPass, $passDb, $solt)){
+									return false;
+								} else {
+									$solt = Password::createSalt();
+									$passCrypt = Password::create_hash($newPass, $solt);
+									$db->query("UPDATE USERS SET PASSWORD = ?s, SOLT = ?s WHERE LOGIN = ?s", $passCrypt, $solt, $login);
+								}
+								return true;
 					}
-				}
-			mysqli_free_result($result);
-			DataBase::Close();
-			return true;
-		}
 		// Функция изменения пароля по токену  полученному на почту
-		public static function changeForgotPassword($login, $password) {
-				$query = sprintf("SELECT * FROM USERS WHERE LOGIN = '%s'", 
-					mysqli_real_escape_string(DataBase::Connect(), $login));
-				if(!$result = mysqli_query(DataBase::Connect(), $query)){
-					mysqli_free_result($result);
-					DataBase::Close();
-					return false;
-				}
-				if (mysqli_num_rows($result) != 0){
-						$solt = Password::createSalt();
-						$passCrypt = Password::create_hash($password, $solt);
-						$stmt = mysqli_stmt_init(DataBase::Connect());
-						$query = "UPDATE USERS SET PASSWORD = ?, SOLT = ? WHERE LOGIN = ?";	
-						if(!mysqli_stmt_prepare($stmt, $query))
-							return false;
-						mysqli_stmt_bind_param ($stmt, "sss", $passCrypt, $solt, $login);	
-						mysqli_stmt_execute($stmt);
-						mysqli_stmt_close($stmt);
-					}
-			mysqli_free_result($result);
-			DataBase::Close();
-			return true;
-		}
+					public static function changeForgotPassword($login, $password) {
+								$db = new SafeMySQL();
+								if(!$result = $db->getRow("SELECT * FROM USERS WHERE LOGIN = ?s", $login))
+									return false;
+									$solt = Password::createSalt();
+									$passCrypt = Password::create_hash($password, $solt);
+									$db->query("UPDATE USERS SET PASSWORD = ?s, SOLT = ?s WHERE LOGIN = ?s", $passCrypt, $solt, $login);
+								return true;
+						}
 		
 		// Функция разницы Двух временных меток
-		public static function diffDate ($dateBig, $dateSmall){
-			if($dateBig > $dateSmall){
-				$diff = date('d', $dateBig) - date('d', $dateSmall);
-			}else{
-				$diff = date('d', $dateSmall) - date('d', $dateBig);
-			}
-			return $diff;
-		}
+					public static function diffDate ($dateBig, $dateSmall){
+						if($dateBig > $dateSmall){
+							$diff = date('d', $dateBig) - date('d', $dateSmall);
+						}else{
+							$diff = date('d', $dateSmall) - date('d', $dateBig);
+						}
+						return $diff;
+					}
 		
 		//Avarar updating
-		public static function changeAvatar($login, $avatar) {
-			$stmt = mysqli_stmt_init(DataBase::Connect());
-			$query = "UPDATE USERS SET AVATAR_URL = ? WHERE LOGIN = ?";
-			if(!mysqli_stmt_prepare($stmt, $query))
-				return false;
-			mysqli_stmt_bind_param($stmt, "ss", $avatar, $login);	
-			mysqli_stmt_execute($stmt);
-			mysqli_stmt_close($stmt);
-			return true;
-		}
+					public static function changeAvatar($login, $avatar) {
+						$db = new SafeMySQL();
+						$db->query("UPDATE USERS SET AVATAR_URL = ?s WHERE LOGIN = ?s", $avatar, $login);
+						return true;
+					}
 }
 
 ?>

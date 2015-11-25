@@ -76,9 +76,9 @@ class SafeMySQL
 
 	private $defaults = array(
 		'host'      => 'localhost',
-		'user'      => 'root',
-		'pass'      => '',
-		'db'        => 'test',
+		'user'      => 'mysql',
+		'pass'      => 'mysql',
+		'db'        => 'MONOPOLY',
 		'port'      => NULL,
 		'socket'    => NULL,
 		'pconnect'  => FALSE,
@@ -135,6 +135,10 @@ class SafeMySQL
 	 * @param mixed  $arg,... unlimited number of arguments to match placeholders in the query
 	 * @return resource|FALSE whatever mysqli_query returns
 	 */
+	function __destruct(){
+		mysqli_close($this->conn);
+	} 
+	 
 	public function query()
 	{	
 		return $this->rawQuery($this->prepareQuery(func_get_args()));
