@@ -21,6 +21,7 @@ function sendRegData(login, password, name, email, captcha){
             if ($(data).find("success").text()) {
 				$('.input').val('').removeAttr('style');
 				$('#loading').css('display','none');
+				document.getElementById('captcha_image').src='app/core/site_lib/gen_captcha.php?'+Math.random();
 				var text = $(data).find("success").text();
 				$('.message').html(text).fadeIn(200, function(){ $(this).css('display','block')}).fadeOut(6000, function(){ $(this).css('display','none')});
             } else {
