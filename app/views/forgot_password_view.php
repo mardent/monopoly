@@ -19,7 +19,7 @@ if(!$data){ ?>
 <?php }else{
 	//Если параметров несколько, то делим полученную строку по параметрам (тоесть &)
 		extract($data);
-		list($time, $user)= @preg_split("/\r?\n/s", $_SESSION['forgot']);
+		@list($time, $user)= @preg_split("/\r?\n/s", @$_SESSION['forgot']);
 		if(@$u == $user && @$t == $time){
 		$timeEnc = new Encrypt(@$t);
 		$timeDec = $timeEnc->getDecrypt();
